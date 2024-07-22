@@ -35,3 +35,15 @@ export async function signInWithGoogle() {
 
   redirect(data.url);
 }
+
+export async function getAccessToken(): Promise<string> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("provider_token")
+
+  if(error) {
+    return "Oops";
+  }
+  return data.toString();
+}
