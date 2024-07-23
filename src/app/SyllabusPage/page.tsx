@@ -130,6 +130,7 @@ const SyllabusPage = (props: Props) => {
         <select
           value={calendarId}
           onChange={(e) => setCalendarId(e.target.value)}
+          className="bg-gray-800 text-white border border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Select Calendar</option>
           {calendars.map((calendar) => (
@@ -142,6 +143,7 @@ const SyllabusPage = (props: Props) => {
           type="text"
           value={calendarSummary}
           onChange={(e) => setCalendarSummary(e.target.value)}
+          className="bg-gray-800 text-white border border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Calendar Name"
         />
         <SyllabusButton color="blue" onClick={createCalendar}>

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import Link from "next/link";
 import ProtectedRouteLink from "./ProtectedRouteLink";
@@ -16,7 +16,10 @@ function Header({ user }: HeaderProps) {
   };
 
   return (
-    <header className="bg-zinc-900 w-32 h-full flex flex-col items-center fixed right-0 top-0">
+    <header
+      className="bg-zinc-900 w-32 h-full flex flex-col items-center fixed right-0 top-0"
+      data-disableselect="true"
+    >
       <button
         className="text-white mt-4 mb-2 focus:outline-none"
         onClick={toggleMenu}

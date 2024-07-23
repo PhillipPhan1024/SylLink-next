@@ -28,6 +28,20 @@ const DragSelection = ({
         opacity: 0.5,
       },
     },
+    shouldStartSelecting: (target) => {
+      if (target instanceof HTMLElement) {
+        if (target.dataset.disableselect === "false") {
+          return true;
+        }
+        
+        let el = target;
+        while (el.parentElement && !el.dataset.disableselect) {
+          el = el.parentElement;
+        }
+        return el.dataset.disableselect !== "true";
+      }
+      return false;
+    },
     isEnabled: true,
   });
 

@@ -35,14 +35,14 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ file, children }) => {
   const downloadPdf = () => {
     window.open(file, "_blank");
   };
-
+  
   return (
-    <div className="pdf-viewer flex flex-row">
-      <div className="pdf-container">
+    <div className="pdf-viewer flex flex-row" data-disableselect="true">
+      <div className="pdf-container" data-disableselect="false">
         <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
           <Page pageNumber={pageNumber} scale={1} />
         </Document>
-      </div>
+      </div> 
       <div className="pdf-controls flex flex-col justify-center ml-4 space-y-2">
         <SyllabusButton
           color="blue"
