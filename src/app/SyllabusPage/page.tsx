@@ -56,7 +56,7 @@ const SyllabusPage = (props: Props) => {
 
   const sendData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/sendData", {
+      const response = await fetch("/api/sendData", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const SyllabusPage = (props: Props) => {
       const parsedData = parseExtractionResults(result.extractionResults);
 
       const createEventsResponse = await fetch(
-        "http://localhost:3000/api/createCalendarEvents",
+        "/api/createCalendarEvents",
         {
           method: "POST",
           headers: {
@@ -96,7 +96,7 @@ const SyllabusPage = (props: Props) => {
   const createCalendar = async () => {
     setError(null);
     try {
-      const response = await fetch("http://localhost:3000/api/createCalendar", {
+      const response = await fetch("/api/createCalendar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -124,9 +124,6 @@ const SyllabusPage = (props: Props) => {
   return (
     <div>
       <PDFViewer file="Test_Syllabus.pdf">
-        <SyllabusButton color="blue" onClick={sendData}>
-          Export to Calendar
-        </SyllabusButton>
         <select
           value={calendarId}
           onChange={(e) => setCalendarId(e.target.value)}
@@ -139,15 +136,18 @@ const SyllabusPage = (props: Props) => {
             </option>
           ))}
         </select>
+        <SyllabusButton color="blue" onClick={sendData}>
+          Export to Calendar
+        </SyllabusButton>
         <input
           type="text"
           value={calendarSummary}
           onChange={(e) => setCalendarSummary(e.target.value)}
           className="bg-gray-800 text-white border border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Calendar Name"
+          placeholder="New Calendar Name"
         />
         <SyllabusButton color="blue" onClick={createCalendar}>
-          Create new Sub-Calendar
+          Create new Calendar
         </SyllabusButton>
         {error && <p style={{ color: "red" }}>{error}</p>}
       </PDFViewer>
