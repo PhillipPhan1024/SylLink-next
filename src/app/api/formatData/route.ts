@@ -1,41 +1,28 @@
-// import type { NextApiRequest, NextApiResponse } from "next";
-// import OpenAI from "openai";
+import { NextResponse } from "next/server";
+import ContextualAnswer from "ai21-sdk/dist/contextualAnswers";
 
-// const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const accessKey = process.env.AI21_KEY as string;
 
-// export default async function handler(
-//   req: NextApiRequest,
-//   res: NextApiResponse
-// ) {
-//   try {
-//     const { data } = req.body;
+export async function POST(req: Request) {
+  try {
+    const { data } = await req.json();
 
-//     const prompt = `Format the following data for calendar events: ${data}`;
+    const contextualAnswer = new ContextualAnswer(accessKey);
 
-//     const response = await openai.chat.completions.create({
-//       model: "gpt-3.5-turbo",
-//       messages: [
-//         {
-//           role: "system",
-//           content:
-//             "You are a helpful assistant that formats data for calendar events.",
-//         },
-//         {
-//           role: "user",
-//           content: prompt,
-//         },
-//       ],
-//       max_tokens: 150,
-//       n: 1,
-//       stop: null,
-//       temperature: 0.7,
-//     });
+    const context =
+      "You are a helpful assistant that formats data for calendar events.";
+    const question = `Format the following data for calendar events: ${data}`;
+    let res = "";
 
-//     const formattedData = response.choices[0].message;
+    contextualAnswer
+      .getContextualAnswer(context, question)
+      .then((result) => res = result);
 
-//     res.status(200).json({ formattedData });
-//   } catch (error) {
-//     console.error("Error formatting data:", error);
-//     res.status(500).json({ error: "Error generating response from OpenAI" });
-//   }
-// }
+    const formattedData = res;
+
+    return NextResponse.json({ formattedData });
+  } catch (error) {
+    console.error("Error formatting data:", error);
+    return NextResponse.json({ error: "Error generating response from AI21" });
+  }
+}

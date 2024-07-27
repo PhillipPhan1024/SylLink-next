@@ -24,25 +24,25 @@ export async function POST(req: Request) {
 
     const extractionResults = await response.json();
 
-    // const openAIResponse = await fetch("http://localhost:3000/api/formatData", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ data: extractionResults }),
-    // });
+    const AI21Response = await fetch("http://localhost:3000/api/formatData", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data: extractionResults }),
+    });
 
-    // if (!openAIResponse.ok) {
-    //   throw new Error("Failed to format data");
-    // }
+    if (!AI21Response.ok) {
+      throw new Error("Failed to format data");
+    }
 
-    // const { formattedData } = await openAIResponse.json();
+    const { formattedData } = await AI21Response.json();
 
     return NextResponse.json({
       message: "Data received and tables extracted successfully",
       data: newData,
       extractionResults,
-      // formattedData,
+      formattedData,
     });
   } catch (error) {
     console.error("Error receiving or forwarding data:", error);
