@@ -24,6 +24,7 @@ const SyllabusPage = (props: Props) => {
   useEffect(() => {
     const fetchCalendars = async () => {
       try {
+        setLoading(true); 
         const response = await fetch("/api/listCalendars");
         if (!response.ok) {
           throw new Error("Failed to fetch calendars");
@@ -35,12 +36,11 @@ const SyllabusPage = (props: Props) => {
         setError(error.message || "Failed to fetch calendars");
         console.error("Error fetching calendars:", error);
       } finally {
-        setLoading(false);
+        setLoading(false); // Ensure loading is stopped regardless of success or failure
       }
     };
-
     fetchCalendars();
-  }, []);
+  }, []); 
 
   const parseExtractionResults = (data: string) => {
     const rows = data.split("\r\n").filter((row) => row.trim() !== "");
@@ -71,16 +71,13 @@ const SyllabusPage = (props: Props) => {
 
       const parsedData = parseExtractionResults(result.extractionResults);
 
-      const createEventsResponse = await fetch(
-        "/api/createCalendarEvents",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ calendarId, events: parsedData }),
-        }
-      );
+      const createEventsResponse = await fetch("/api/createCalendarEvents", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ calendarId, events: parsedData }),
+      });
 
       if (!createEventsResponse.ok) {
         throw new Error("Failed to create calendar events");
