@@ -72,25 +72,25 @@ export async function POST(req: Request) {
     });
 
     // FUNCTIONALITY
-    const { calendarId, events } = await req.json();
+    // const { calendarId, events } = await req.json();
 
-    const calendar = google.calendar({ version: "v3", auth });
-    for (const event of events) {
-      const { Quiz, Topics, Textbook, Date } = event;
-      await calendar.events.insert({
-        calendarId,
-        requestBody: {
-          summary: Quiz,
-          description: `${Topics}\nTextbook Sections: ${Textbook}`,
-          start: {
-            dateTime: "2024-07-23T03:30:00-06:00"
-          },
-          end: {
-            dateTime: "2024-07-23T04:30:00-06:00"
-          },
-        },
-      });
-    }
+    // const calendar = google.calendar({ version: "v3", auth });
+    // for (const event of events) {
+    //   const { Quiz, Topics, Textbook, Date } = event;
+    //   await calendar.events.insert({
+    //     calendarId,
+    //     requestBody: {
+    //       summary: Quiz,
+    //       description: `${Topics}\nTextbook Sections: ${Textbook}`,
+    //       start: {
+    //         dateTime: "2024-07-23T03:30:00-06:00"
+    //       },
+    //       end: {
+    //         dateTime: "2024-07-23T04:30:00-06:00"
+    //       },
+    //     },
+    //   });
+    // }
 
     return NextResponse.json({ message: "Events created successfully" });
   } catch (error) {

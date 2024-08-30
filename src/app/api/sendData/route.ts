@@ -42,7 +42,7 @@ export async function POST(req: Request) {
       message: "Data received and tables extracted successfully",
       data: newData,
       extractionResults,
-      formattedData,
+      // formattedData,
     });
   } catch (error) {
     console.error("Error receiving or forwarding data:", error);

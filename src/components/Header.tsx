@@ -64,9 +64,6 @@ function Header({ user }: HeaderProps) {
         <Link href="/" className="hover:text-emerald-600">
           Home
         </Link>
-        <ProtectedRouteLink href="/protected-route" user={user}>
-          Protected Route
-        </ProtectedRouteLink>
         <ProtectedRouteLink href="/SyllabusPage" user={user}>
           SyllabusPage
         </ProtectedRouteLink>
